@@ -34,6 +34,14 @@
   color: #61dafb;
 }
 
+/*.result {
+  margin-top: 6vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  margin-left: 10vh;
+  margin-right: 10vh;
+}*/
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
