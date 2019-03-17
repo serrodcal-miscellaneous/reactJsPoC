@@ -3,14 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -75,24 +73,23 @@ class App extends Component {
   };
 
   handleInputSong= e => {
-    this.state.song = e.target.value;
+    this.setState({
+      song: e.target.value.replace(/\s/g, "%20"),
+    });
   }
 
   handleInputArtist= e => {
-    this.state.artist = e.target.value;
+    this.setState({
+      artist: e.target.value.replace(/\s/g, "%20"),
+    });
   }
 
   searchMusic= () => {
     if(!this.state.artist || !this.state.song){
-      this.state.open = true;
       this.setState({
-        song: this.state.song,
-        artist: this.state.artist,
         open: true,
       });
     }else{
-      this.state.artist = this.state.artist.replace(/\s/g, "%20");
-      this.state.song = this.state.song.replace(/\s/g, "%20");
       fetch(API_URL + this.state.artist + '/' + this.state.song)
         .then(response => response.json())
         .then(data => this.setState({ lyric: data.lyrics }));
@@ -155,7 +152,8 @@ class App extends Component {
               <Typography variant="h5" component="h3">
                 Result:
               </Typography>
-              <Typography dangerouslySetInnerHTML={{__html: this.state.lyric}} component="p">
+              <Typography component="p">
+                {this.state.lyric}
               </Typography>
             </Paper>
           </div>
@@ -171,5 +169,3 @@ App.propTypes = {
 };
 
 export default withStyles(styles)(App);
-
-//export default App;
