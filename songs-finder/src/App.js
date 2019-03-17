@@ -44,6 +44,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 10,
     marginLeft: theme.spacing.unit * 10,
     marginRight: theme.spacing.unit * 10,
+    paddingTop: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 10,
+    paddingRight: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 2,
   },
   button: {
     marginLeft: theme.spacing.unit * 2,
@@ -87,6 +91,8 @@ class App extends Component {
         open: true,
       });
     }else{
+      this.state.artist = this.state.artist.replace(/\s/g, "%20");
+      this.state.song = this.state.song.replace(/\s/g, "%20");
       fetch(API_URL + this.state.artist + '/' + this.state.song)
         .then(response => response.json())
         .then(data => this.setState({ lyric: data.lyrics }));
@@ -134,7 +140,7 @@ class App extends Component {
           <DialogTitle id="alert-dialog-title">Warning</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              ¡Navajaso! hahaha, pero casi... anda, pon un artista y una canción, chalao...
+              The artist name or the title song can not empty.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -149,8 +155,7 @@ class App extends Component {
               <Typography variant="h5" component="h3">
                 Result:
               </Typography>
-              <Typography component="p">
-                {this.state.lyric}
+              <Typography dangerouslySetInnerHTML={{__html: this.state.lyric}} component="p">
               </Typography>
             </Paper>
           </div>
