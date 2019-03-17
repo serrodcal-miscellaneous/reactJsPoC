@@ -66,8 +66,6 @@ class App extends Component {
 
   handleClose = () => {
     this.setState({
-      song: this.state.song,
-      artist: this.state.artist,
       open: false,
     });
   };
