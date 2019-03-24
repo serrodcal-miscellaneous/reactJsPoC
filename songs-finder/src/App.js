@@ -106,7 +106,7 @@ class App extends Component {
                   song={this.handleInputSong} searchMusic={this.searchMusic}
                   handleClose={this.handleClose} open={this.state.open}/>
 
-                {this.state.lyric ? <Result classes={classes} lyric={this.state.lyric} title={this.state.title}/> : null}
+          {this.state.lyric ? <Result classes={classes} lyric={this.state.lyric} title={this.state.title}/> : null}
 
         </div>
       </div>
