@@ -5,6 +5,7 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 5vmin;
+  padding-top: 20px;
   pointer-events: none;
 }
 
@@ -34,13 +35,11 @@
   color: #61dafb;
 }
 
-/*.result {
-  margin-top: 6vh;
-  padding-left: 1vh;
-  padding-right: 1vh;
-  margin-left: 10vh;
-  margin-right: 10vh;
-}*/
+.Todo-form{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
 
 @keyframes App-logo-spin {
   from {
