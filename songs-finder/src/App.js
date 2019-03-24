@@ -16,7 +16,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import Result from './components/result/Result';
+import Params from './components/params/Params';
 
 const API_URL = 'https://api.lyrics.ovh/v1/';
 
@@ -70,13 +71,13 @@ class App extends Component {
     });
   };
 
-  handleInputSong= e => {
+  handleInputSong = e => {
     this.setState({
       song: e.target.value.replace(/\s/g, "%20"),
     });
   }
 
-  handleInputArtist= e => {
+  handleInputArtist = e => {
     this.setState({
       artist: e.target.value.replace(/\s/g, "%20"),
     });
@@ -104,57 +105,11 @@ class App extends Component {
         </header>
         <div className="App-body">
 
-          <div className={classes.container}>
-            <TextField
-              className={classes.textField}
-              id="standard-name"
-              label="Artist"
-              onChange={this.handleInputArtist}
-              margin="normal"
-              placeholder="Artist"
-            />
+          <Params foo={classes} foo2={classes.container} artist={this.handleInputArtist}
+                  song={this.handleInputSong} searchMusic={this.searchMusic}
+                  handleClose={this.handleClose} open={this.state.open}/>
 
-            <TextField
-              className={classes.textField}
-              id="standard-name"
-              label="Song"
-              onChange={this.handleInputSong}
-              margin="normal"
-              placeholder="Song"
-            />
-
-          <Button className={classes.button} onClick={this.searchMusic} variant="contained" color="primary">Search</Button>
-          </div>
-
-          <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">Warning</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              The artist name or the title song can not empty.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-          <div>
-            <Paper className={classes.root} elevation={1}>
-              <Typography variant="h5" component="h3">
-                Result:
-              </Typography>
-              <Typography component="p">
-                {this.state.lyric}
-              </Typography>
-            </Paper>
-          </div>
+          <Result foo={classes.root} lyric={this.state.lyric}/>
 
         </div>
       </div>
