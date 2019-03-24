@@ -6,9 +6,9 @@ class Result extends Component{
   render() {
     return (
     <div>
-      <Paper className={this.props.foo} elevation={1}>
+      <Paper className={this.props.classes.root} elevation={1}>
         <Typography variant="h5" component="h3">
-          Result:
+          {this.props.title}
         </Typography>
         <Typography component="p">
           {this.props.lyric}

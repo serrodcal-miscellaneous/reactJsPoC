@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-
-import TextField from '@material-ui/core/TextField';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Result from './components/result/Result';
 import Params from './components/params/Params';
 
@@ -61,6 +48,7 @@ class App extends Component {
       song: '',
       artist: '',
       open: false,
+      title: '',
     }
 
   }
@@ -90,14 +78,23 @@ class App extends Component {
       });
     }else{
       fetch(API_URL + this.state.artist + '/' + this.state.song)
-        .then(response => response.json())
-        .then(data => this.setState({ lyric: data.lyrics }));
+        .then(response => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json()
+        })
+        .then(data => this.setState({ lyric: data.lyrics, title: this.state.song + " - " + this.state.artist }))
+        .catch(error => {
+        let text = 'Song not found.'
+        let title = 'Error'
+        this.setState({ lyric: text, title: title });
+      });
     }
-
   }
 
   render() {
-    const { classes } = this.props;;
+    const { classes } = this.props;
     return (
       <div className="App">
         <header className="App-header">
@@ -105,11 +102,11 @@ class App extends Component {
         </header>
         <div className="App-body">
 
-          <Params foo={classes} foo2={classes.container} artist={this.handleInputArtist}
+          <Params classes={classes} artist={this.handleInputArtist}
                   song={this.handleInputSong} searchMusic={this.searchMusic}
                   handleClose={this.handleClose} open={this.state.open}/>
 
-          <Result foo={classes.root} lyric={this.state.lyric}/>
+                {this.state.lyric ? <Result classes={classes} lyric={this.state.lyric} title={this.state.title}/> : null}
 
         </div>
       </div>
